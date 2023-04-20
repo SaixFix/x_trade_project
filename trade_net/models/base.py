@@ -1,0 +1,35 @@
+from django.db import models
+from django.utils import timezone
+
+
+class BaseModel(models.Model):
+    class Meta:
+        abstract = True
+
+    title = models.CharField(max_length=100, verbose_name='Название')
+    email = models.EmailField(max_length=100)
+    address = models.ManyToManyField('Address')
+    product = models.ManyToManyField('Product')
+    debt = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+        return super().save(*args, **kwargs)
+
+
+class Address(models.Model):
+    country = models.CharField(max_length=100, verbose_name='Страна')
+    city = models.CharField(max_length=100, verbose_name='Город')
+    street = models.CharField(max_length=100, verbose_name='Улица')
+    house_number = models.CharField(max_length=10, verbose_name='Номер дома')
+
+
+class Product(models.Model):
+    title = models.CharField(max_length=200, verbose_name='Название')
+    model = models.CharField(max_length=200, verbose_name='Модель')
+    release_date = models.DateField(null=True, blank=True, verbose_name='Дата выхода продукта на рынок')
