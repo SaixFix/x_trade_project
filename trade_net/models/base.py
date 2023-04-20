@@ -28,10 +28,10 @@ class Address(models.Model):
     street = models.CharField(max_length=100, verbose_name='Улица')
     house_number = models.CharField(max_length=10, verbose_name='Номер дома')
 
-    def __str__(self):
-        return f'{self.city}'
     # def __str__(self):
-    #     return f'{self.country}, {self.city}, {self.street}, {self.house_number}'
+    #     return f'{self.city}'
+    def __str__(self):
+        return f'{self.country}, {self.city}, {self.street}, {self.house_number}'
 
 
 class Product(models.Model):

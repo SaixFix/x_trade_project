@@ -10,8 +10,7 @@ class FactoryCreateSerializer(serializers.ModelSerializer):
     email = serializers.CharField(required=False)
     debt = serializers.DecimalField(max_digits=19, decimal_places=2, required=False)
     address = AddressPartSerializer(
-        read_only=True,
-        many=True
+        read_only=True
     )
     product = ProductPartSerializer(
         read_only=True,
@@ -34,7 +33,7 @@ class FactoryCreateSerializer(serializers.ModelSerializer):
         factory = Factory.objects.create(**validated_data)
         address, _ = Address.objects.get_or_create(**self._address)
         product, _ = Product.objects.get_or_create(**self._product)
-        factory.address.add(address)
+        Factory.objects.update(address=address.pk)
         factory.product.add(product)
 
         return factory
@@ -42,8 +41,7 @@ class FactoryCreateSerializer(serializers.ModelSerializer):
 
 class FactoryListSerializer(serializers.ModelSerializer):
     address = AddressPartSerializer(
-        read_only=True,
-        many=True
+        read_only=True
     )
     product = ProductPartSerializer(
         read_only=True,
