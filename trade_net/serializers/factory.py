@@ -8,7 +8,7 @@ from trade_net.serializers.base import AddressPartSerializer, ProductPartSeriali
 class FactoryCreateSerializer(serializers.ModelSerializer):
     title = serializers.CharField(required=True)
     email = serializers.CharField(required=False)
-    debt = serializers.DecimalField(required=False)
+    debt = serializers.DecimalField(max_digits=19, decimal_places=2, required=False)
     address = AddressPartSerializer(
         read_only=True,
         many=True
@@ -53,4 +53,4 @@ class FactoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Factory
         fields = '__all__'
-        read_only_fields = '__all__'
+        read_only_fields = ('__all__',)
