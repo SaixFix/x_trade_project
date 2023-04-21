@@ -1,6 +1,4 @@
 from django.contrib import admin
-from django.urls import reverse
-from django.utils.html import format_html
 
 from trade_net.models import base
 from trade_net.models.factory import Factory
@@ -19,6 +17,7 @@ class Product(admin.ModelAdmin):
 
 @admin.action(description='Очистить задолжность')
 def make_zero(modeladmin, request, queryset):
+    """Добовляет в админку экшн обнуляющий задолжность"""
     queryset.update(debt=0)
 
 
@@ -29,6 +28,7 @@ class FactoryAdmin(admin.ModelAdmin):
     actions = [make_zero]
 
     def address(self, obj):
+        """Функция сортировки страки адресс по городу"""
         return obj.author.first_name
 
     address.admin_order_field = 'address__city'

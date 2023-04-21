@@ -8,7 +8,7 @@ class BaseModel(models.Model):
 
     title = models.CharField(max_length=100, verbose_name='Название')
     email = models.EmailField(max_length=100)
-    address = models.ForeignKey('Address', on_delete=models.PROTECT, null=True)
+    address = models.ForeignKey('Address', on_delete=models.SET_NULL, null=True)
     product = models.ManyToManyField('Product')
     debt = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
