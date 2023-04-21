@@ -8,4 +8,4 @@ class SoleTrader(BaseModel):
 
     class Meta:
         verbose_name = 'Индивидуальный предприниматель'
-        verbose_name_plural = 'Индивидуальный предприниматели'
+        verbose_name_plural = 'Индивидуальные предприниматели'

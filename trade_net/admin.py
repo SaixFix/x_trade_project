@@ -2,6 +2,8 @@ from django.contrib import admin
 
 from trade_net.models import base
 from trade_net.models.factory import Factory
+from trade_net.models.retail_network import RetailNetwork
+from trade_net.models.sole_trader import SoleTrader
 
 
 @admin.register(base.Address)
@@ -21,17 +23,43 @@ def make_zero(modeladmin, request, queryset):
     queryset.update(debt=0)
 
 
+@admin.register(Factory)
 class FactoryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'email', 'debt', 'created', 'address']
+    list_display = ['title', 'email', 'debt', 'address']
     list_display_links = ('title',)
     filter_horizontal = ['product']
     actions = [make_zero]
 
     def address(self, obj):
         """Функция сортировки страки адресс по городу"""
-        return obj.author.first_name
+        return obj.addres.city
 
     address.admin_order_field = 'address__city'
 
 
-admin.site.register(Factory, FactoryAdmin)
+@admin.register(RetailNetwork)
+class RetailNetworkAdmin(admin.ModelAdmin):
+    list_display = ['title', 'email', 'debt', 'address']
+    list_display_links = ('title',)
+    filter_horizontal = ['product']
+    actions = [make_zero]
+
+    def address(self, obj):
+        """Функция сортировки страки адресс по городу"""
+        return obj.addres.city
+
+    address.admin_order_field = 'address__city'
+
+
+@admin.register(SoleTrader)
+class SoleTraderAdmin(admin.ModelAdmin):
+    list_display = ['title', 'email', 'debt', 'address']
+    list_display_links = ('title',)
+    filter_horizontal = ['product']
+    actions = [make_zero]
+
+    def address(self, obj):
+        """Функция сортировки страки адресс по городу"""
+        return obj.addres.city
+
+    address.admin_order_field = 'address__city'
