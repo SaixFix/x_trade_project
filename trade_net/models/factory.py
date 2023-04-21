@@ -1,5 +1,3 @@
-from django.db import models
-
 from trade_net.models.base import BaseModel
 
 

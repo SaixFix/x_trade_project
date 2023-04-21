@@ -4,7 +4,7 @@ from trade_net.models.base import BaseModel
 
 
 class SoleTrader(BaseModel):
-    product = models.ForeignKey('Factory', on_delete=models.PROTECT, verbose_name='Поставщик')
+    provider = models.ForeignKey('Factory', on_delete=models.SET_NULL, verbose_name='Поставщик', null=True)
 
     class Meta:
         verbose_name = 'Индивидуальный предприниматель'

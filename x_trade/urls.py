@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/schema', SpectacularAPIView.as_view(), name="schema"),
     path('api/schema/swagger-ui', SpectacularSwaggerView.as_view(), name="swagger"),
     path('factory/', include('trade_net.urls.factory')),
+    path('retail_network/', include('trade_net.urls.retail_network')),
 ]
